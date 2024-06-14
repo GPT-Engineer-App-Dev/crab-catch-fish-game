@@ -16,6 +16,23 @@ const Index = () => {
       y: Math.random() * 300,
     }));
     setFishPool(initialFishPool);
+
+    // Function to move fish
+    const moveFish = () => {
+      setFishPool((prevFishPool) =>
+        prevFishPool.map((fish) => ({
+          ...fish,
+          x: Math.min(Math.max(fish.x + (Math.random() - 0.5) * 20, 0), 300),
+          y: Math.min(Math.max(fish.y + (Math.random() - 0.5) * 20, 0), 300),
+        }))
+      );
+    };
+
+    // Move fish every second
+    const intervalId = setInterval(moveFish, 1000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleCatchFish = (id) => {
