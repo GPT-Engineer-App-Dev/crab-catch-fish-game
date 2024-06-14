@@ -66,8 +66,8 @@ const Index = () => {
               cursor="pointer"
             />
           ))}
-          <Image src="/images/crab.png" alt="Crab" boxSize="100px" position="absolute" bottom="10px" left="50%" transform="translateX(-50%)" />
         </Box>
+        <Image src="/images/crab.png" alt="Crab" boxSize="100px" position="absolute" bottom="10px" left="50%" transform="translateX(-50%)" />
       </VStack>
     </Container>
   );
