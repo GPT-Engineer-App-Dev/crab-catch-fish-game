@@ -5,7 +5,6 @@ import { GiCrab } from "react-icons/gi";
 
 const Index = () => {
   const [score, setScore] = useState(0);
-
   const [fishPool, setFishPool] = useState([]);
 
   useEffect(() => {
@@ -22,14 +21,14 @@ const Index = () => {
       setFishPool((prevFishPool) =>
         prevFishPool.map((fish) => ({
           ...fish,
-          x: Math.min(Math.max(fish.x + (Math.random() - 0.5) * 20, 0), 300),
-          y: Math.min(Math.max(fish.y + (Math.random() - 0.5) * 20, 0), 300),
+          x: Math.min(Math.max(fish.x + (Math.random() - 0.5) * 5, 0), 300),
+          y: Math.min(Math.max(fish.y + (Math.random() - 0.5) * 5, 0), 300),
         }))
       );
     };
 
-    // Move fish every second
-    const intervalId = setInterval(moveFish, 1000);
+    // Move fish every 100ms for smoother movement
+    const intervalId = setInterval(moveFish, 100);
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
@@ -38,6 +37,14 @@ const Index = () => {
   const handleCatchFish = (id) => {
     setFishPool(fishPool.filter(fish => fish.id !== id));
     setScore(score + 1);
+
+    // Respawn a new fish at a random position after 1 second
+    setTimeout(() => {
+      setFishPool(prevFishPool => [
+        ...prevFishPool,
+        { id: Math.random(), x: Math.random() * 300, y: Math.random() * 300 }
+      ]);
+    }, 1000);
   };
 
   return (
